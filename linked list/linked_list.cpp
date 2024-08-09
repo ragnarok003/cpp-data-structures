@@ -91,6 +91,7 @@ public:
             if (temp->next->data == n)
             {
                temp->next = temp->next->next;
+               length--;
                return;
             }
             temp = temp->next;
