@@ -13,10 +13,9 @@ class LinkedList
 {
    Node *head;
    Node *tail;
-   
 
 public:
-   int length=0;
+   int length = 0;
    LinkedList()
    {
       head = NULL;
@@ -35,28 +34,32 @@ public:
          tail = newNode;
       }
    }
-   void addAtPosition(int val ,int pos){
-      Node *newNode =new Node();
-      newNode->data=val;
-      Node * temp=head;
+   void addAtPosition(int val, int pos)
+   {
+      Node *newNode = new Node();
+      newNode->data = val;
+      Node *temp = head;
 
-      if(pos==1){
+      if (pos == 1)
+      {
          addFirst(val);
       }
-      else if(pos==length){
+      else if (pos == length)
+      {
          addLast(val);
       }
-      else{
-         int p=1;
-         while(p<pos-1){
-            temp=temp->next;
+      else
+      {
+         int p = 1;
+         while (p < pos - 1)
+         {
+            temp = temp->next;
             p++;
          }
-         newNode->next=temp->next;
-         temp->next=newNode;
+         newNode->next = temp->next;
+         temp->next = newNode;
       }
       length++;
-
    }
    void addLast(int val)
    {
@@ -74,6 +77,27 @@ public:
          tail = newNode;
       }
    }
+   void deleteElement(int n)
+   {
+      Node *temp = head;
+      if (temp->data == n)
+      {  
+         head=temp->next;
+      }
+      else
+      {
+         while (temp->next != NULL)
+         {
+            if (temp->next->data == n)
+            {
+               temp->next = temp->next->next;
+               return;
+            }
+            temp = temp->next;
+         }
+         throw "NOT FOUND";
+      }
+   }
    void print()
    {
       Node *temp = head;
@@ -82,6 +106,7 @@ public:
          cout << temp->data << "\t";
          temp = temp->next;
       } while (temp != NULL);
+      cout <<endl;
    }
    int search(int n)
    {
@@ -96,7 +121,7 @@ public:
          c++;
          temp = temp->next;
       }
-      throw "Element Not Found" ;
+      throw "Element Not Found";
    }
 };
 
@@ -120,10 +145,10 @@ int main()
    list.addLast(80);
    cout << "Inserting Element: " << 90 << endl;
    list.addLast(90);
-   cout << list.length<< endl;
+   cout << list.length << endl;
    cout << "Inserting Element: " << 60 << endl;
-   list.addAtPosition(60,6);
-   cout << list.length<< endl;
+   list.addAtPosition(60, 6);
+   cout << list.length << endl;
 
    cout << "The LinkedList ELEMENTS ARE :" << endl;
    list.print();
@@ -136,7 +161,15 @@ int main()
    catch (char const* s) {
       cout << s << endl;
    }
-
-   
+   int del_el;
+   cout << "\nEnter element to delete ";
+   cin >> del_el;
+   try{
+      list.deleteElement(del_el);
+   }
+   catch(char const* s){
+      cout << s <<endl;
+   }   
+   list.print();
    return 0;
 }
