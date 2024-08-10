@@ -42,6 +42,18 @@ public:
       }
       lenght++;
    }
+   int search(int val){
+      Node * temp=head;
+      int pos=1;
+      while (temp!=NULL){
+         if(temp->data==val){
+            return pos;
+         }
+         pos++;
+         temp=temp->next;
+      }
+      throw "NOT FOUND";
+   }
    void addLast(int val)
    {
       Node *newNode = new Node();
@@ -93,8 +105,15 @@ int main()
    list.addLast(80);
    cout << "Inserting Element: " << 90 << endl;
    list.addLast(90);
-   list.print();
-   list.printRev();
+
+   try {
+      cout << list.search(70);
+   }
+   catch(char const * s){
+      cout << s;
+   }   
+   // list.print();
+   // list.printRev();
 
    return 0;
 }
