@@ -79,18 +79,23 @@ public:
    }
    void deleteElement(int n)
    {
-      Node *temp = head;
+      Node *temp= head;
       if (temp->data == n)
       {  
+         Node * del=temp;
          head=temp->next;
+         free(del);
+         length--;
+         return;
       }
       else
       {
          while (temp->next != NULL)
          {
             if (temp->next->data == n)
-            {
+            {  Node * del=temp->next;
                temp->next = temp->next->next;
+               delete(del);
                length--;
                return;
             }
@@ -98,6 +103,7 @@ public:
          }
          throw "NOT FOUND";
       }
+
    }
    void print()
    {
