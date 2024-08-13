@@ -16,7 +16,7 @@ class DoublyLinkedList
    Node *tail;
 
 public:
-   int lenght = 0;
+   int length = 0;
    DoublyLinkedList()
    {
       head = NULL;
@@ -28,29 +28,33 @@ public:
       Node *newNode = new Node();
       newNode->data = val;
       newNode->prev = NULL;
-      
-      if (head== NULL)
+
+      if (head == NULL)
       {
          newNode->next = NULL;
          head = newNode;
-         tail=newNode;
+         tail = newNode;
       }
-      else{
-         newNode->next=head;
-         head->prev=newNode;
-         head=newNode;
+      else
+      {
+         newNode->next = head;
+         head->prev = newNode;
+         head = newNode;
       }
-      lenght++;
+      length++;
    }
-   int search(int val){
-      Node * temp=head;
-      int pos=1;
-      while (temp!=NULL){
-         if(temp->data==val){
+   int search(int val)
+   {
+      Node *temp = head;
+      int pos = 1;
+      while (temp != NULL)
+      {
+         if (temp->data == val)
+         {
             return pos;
          }
          pos++;
-         temp=temp->next;
+         temp = temp->next;
       }
       throw "NOT FOUND";
    }
@@ -60,18 +64,45 @@ public:
       newNode->data = val;
 
       newNode->next = NULL;
-      newNode->prev=tail;
-      tail->next=newNode;
-      tail=newNode;
-      lenght++;
+      newNode->prev = tail;
+      tail->next = newNode;
+      tail = newNode;
+      length++;
    }
+   void addAtPosition(int val, int pos)
+   {
 
+      if (pos == 1)
+      {
+         addFirst(val);
+      }
+      else if (pos == length)
+      {
+         addLast(val);
+      }
+      else
+      {
+         int p = 1;
+         Node *newNode = new Node();
+         newNode->data = val;
+         Node *temp = head;
+         while(p<pos-1){
+            temp=temp->next;
+            p++;
+         }
+         newNode->next=temp->next;
+         temp->next->prev=newNode;
+         temp->next=newNode;
+         newNode->prev=temp;
+      }
+      length++;
+   }
    void print()
    {
       Node *temp = head;
       while (temp != NULL)
       {
-         cout << temp->data << "-";
+         cout << temp->data << " ";
          temp = temp->next;
       }
    }
@@ -80,7 +111,7 @@ public:
       Node *temp = tail;
       while (temp != NULL)
       {
-         cout << temp->data << "-";
+         cout << temp->data << " ";
          temp = temp->prev;
       }
    }
@@ -105,14 +136,15 @@ int main()
    list.addLast(80);
    cout << "Inserting Element: " << 90 << endl;
    list.addLast(90);
-
-   try {
-      cout << list.search(70);
-   }
-   catch(char const * s){
-      cout << s;
-   }   
-   // list.print();
+   list.addAtPosition(60, 6);
+   cout << "Length " << list.length << endl;
+   // try {
+   //    cout << list.search(70);
+   // }
+   // catch(char const * s){
+   //    cout << s;
+   // }
+   list.print();
    // list.printRev();
 
    return 0;
