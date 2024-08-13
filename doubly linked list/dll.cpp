@@ -69,6 +69,48 @@ public:
       tail = newNode;
       length++;
    }
+   void deleteElement(int n)
+   {
+      Node *temp_head = head;
+      Node *temp_tail = tail;
+
+      if (temp_head->data == n)
+      {
+         Node *del = temp_head;
+         temp_head->next->prev = NULL;
+         head = temp_head->next;
+         delete (del);
+         length --;
+         return;
+      }
+      else if (temp_tail->data == n)
+      {
+         Node *del = temp_tail;
+         temp_tail->prev->next = NULL;
+         tail = temp_tail->prev;
+         delete (del);
+         length--;
+         return;
+      }
+      else
+      {
+         Node *temp = head;
+         while (temp->next != NULL)
+         {
+            if (temp->next->data == n)
+            {
+               Node *del = temp->next;
+               temp->next->next->prev = temp;
+               temp->next = temp->next->next;
+               delete (del);
+               length--;
+               return;
+            }
+            temp = temp->next;
+         }
+      }
+      throw "Not Found";
+   }
    void addAtPosition(int val, int pos)
    {
 
@@ -86,14 +128,15 @@ public:
          Node *newNode = new Node();
          newNode->data = val;
          Node *temp = head;
-         while(p<pos-1){
-            temp=temp->next;
+         while (p < pos - 1)
+         {
+            temp = temp->next;
             p++;
          }
-         newNode->next=temp->next;
-         temp->next->prev=newNode;
-         temp->next=newNode;
-         newNode->prev=temp;
+         newNode->next = temp->next;
+         temp->next->prev = newNode;
+         temp->next = newNode;
+         newNode->prev = temp;
       }
       length++;
    }
@@ -105,6 +148,7 @@ public:
          cout << temp->data << " ";
          temp = temp->next;
       }
+      cout << endl;
    }
    void printRev()
    {
@@ -114,6 +158,7 @@ public:
          cout << temp->data << " ";
          temp = temp->prev;
       }
+      cout << endl;
    }
 };
 int main()
@@ -144,6 +189,13 @@ int main()
    // catch(char const * s){
    //    cout << s;
    // }
+   list.print();
+   try{
+      list.deleteElement(20);
+   }
+   catch(const char *s){
+      cout << s <<endl;
+   }
    list.print();
    // list.printRev();
 
