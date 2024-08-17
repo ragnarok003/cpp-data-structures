@@ -79,12 +79,26 @@ public:
    }
    void deleteElement(int n)
    {
-      Node *temp= head;
-      if (temp->data == n)
-      {  
-         Node * del=temp;
-         head=temp->next;
-         free(del);
+      Node *temp = head;
+      if (head->data == n)
+      {
+         Node *del = temp;
+         head = temp->next;
+         delete (del);
+         length--;
+         return;
+      }
+      else if (tail->data == n)
+      {
+
+         while (temp->next != tail)
+         {
+            temp = temp->next;
+            // cout << temp->data<< '-';
+         }
+         tail = temp;
+         tail->next = NULL;
+         delete (temp->next);
          length--;
          return;
       }
@@ -93,9 +107,10 @@ public:
          while (temp->next != NULL)
          {
             if (temp->next->data == n)
-            {  Node * del=temp->next;
+            {
+               Node *del = temp->next;
                temp->next = temp->next->next;
-               delete(del);
+               delete (del);
                length--;
                return;
             }
@@ -103,7 +118,6 @@ public:
          }
          throw "NOT FOUND";
       }
-
    }
    void print()
    {
@@ -113,7 +127,7 @@ public:
          cout << temp->data << "\t";
          temp = temp->next;
       } while (temp != NULL);
-      cout <<endl;
+      cout << endl;
    }
    int search(int n)
    {
@@ -162,21 +176,26 @@ int main()
    int se;
    cout << "\nEnter Search Element" << endl;
    cin >> se;
-   try {
-      cout << list.search(se)<< endl;
+   try
+   {
+      cout << list.search(se) << endl;
    }
-   catch (char const* s) {
+   catch (char const *s)
+   {
       cout << s << endl;
    }
    int del_el;
    cout << "\nEnter element to delete ";
    cin >> del_el;
-   try{
+   try
+   {
       list.deleteElement(del_el);
    }
-   catch(char const* s){
-      cout << s <<endl;
-   }   
+   catch (char const *s)
+   {
+      cout << s << endl;
+   }
    list.print();
+   cout << list.length;
    return 0;
 }
