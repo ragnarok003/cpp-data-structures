@@ -12,6 +12,7 @@ class Stack
     Node *head;
 
 public:
+    int length=0;
     Stack()
     {
         head = NULL;
@@ -23,6 +24,7 @@ public:
 
         newNode->next = head;
         head = newNode;
+        length++;
     }
     void pop()
     {
@@ -36,9 +38,10 @@ public:
             Node *del = head;
             head = head->next;
             delete (del);
+            length--;
         }
     }
-
+    
     int top()
     {
         if (head == NULL)
@@ -55,14 +58,14 @@ int main()
     Stack list;
 
     list.pop();
-
+    cout << list.length<<endl;
     cout<<"Pushing element: "<<10<<endl;
     list.push(10);
     cout<<"Pushing element: "<<20<<endl;
     list.push(20);
     cout<<"Pushing element: "<<30<<endl;
     list.push(30);
-
+    cout <<"Length of List: " <<list.length<<endl;
     cout << "Top of stack : "<<list.top()<<endl;
     list.pop();
     list.pop();
